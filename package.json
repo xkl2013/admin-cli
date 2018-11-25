@@ -3,17 +3,24 @@
   "scripts": {
     "start": "roadhog server",
     "build": "roadhog build",
-    "lint": "eslint --ext .js --ext .jsx src/",
+    "lint:style": "stylelint \"src/**/*.less\" --syntax less",
+    "lint": "eslint --ext .js src mock tests && npm run lint:style",
+    "lint:fix": "eslint --fix --ext .js src mock tests && npm run lint:style",
     "precommit": "npm run lint-staged",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "npm run lint"
+    "lint-staged:js": "eslint --ext .js",
+    "test": "roadhog test",
+    "test:component": "roadhog test ./src/components",
+    "test:all": "node ./tests/run-tests.js",
+    "prettier": "prettier --write ./src/**/**/**/*"
   },
   "lint-staged": {
     "**/*.{js,jsx,less}": [
       "prettier --write",
       "git add"
     ],
-    "**/*.{js,jsx}": "lint-staged:js"
+    "**/*.{js,jsx}": "lint-staged:js",
+    "**/*.less": "stylelint --syntax less"
   },
   "dependencies": {
     "antd": "^3.10.8",
@@ -30,6 +37,9 @@
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-prettier": "^3.0.4",
+    "stylelint-config-standard": "^18.0.0",
     "husky": "^0.12.0",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.2",
