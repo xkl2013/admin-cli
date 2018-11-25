@@ -1,24 +1,29 @@
 import React from 'react';
 import { connect } from 'dva';
-import {Button} from 'antd';
+import { Button } from 'antd';
 import styles from './IndexPage.css';
 
 function IndexPage() {
-  console.log(process.env.TEST)
+  console.log(process.env.TEST);
   return (
     <div className={styles.normal}>
       <h1 className={styles.title}>Yay! Welcome to dva!</h1>
       <div className={styles.welcome} />
       <Button type="primary">点击</Button>
       <ul className={styles.list}>
-        <li>To get started, edit <code>src/index.js</code> and save to reload.</li>
-        <li><a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">Getting Started</a></li>
+        <li>
+          To get started, edit <code>src/index.js</code> and save to reload.
+        </li>
+        <li>
+          <a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">
+            Getting Started
+          </a>
+        </li>
       </ul>
     </div>
   );
 }
 
-IndexPage.propTypes = {
-};
+IndexPage.propTypes = {};
 
 export default connect()(IndexPage);
