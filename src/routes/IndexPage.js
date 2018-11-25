@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Button } from 'antd';
 import styles from './IndexPage.css';
 
-const sss = 222;
 function IndexPage() {
   console.log(process.env.TEST);
   return (
@@ -12,9 +11,6 @@ function IndexPage() {
       <div className={styles.welcome} />
       <Button type="primary">点击</Button>
       <ul className={styles.list}>
-        <li>
-          To get started, edit <code>src/index.js</code> and save to reload.
-        </li>
         <li>
           <a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">
             Getting Started

@@ -3,16 +3,12 @@
   "scripts": {
     "start": "roadhog server",
     "build": "roadhog build",
+    "precommit": "npm run lint-staged",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
     "lint": "eslint --ext .js src mock tests && npm run lint:style",
     "lint:fix": "eslint --fix --ext .js src mock tests && npm run lint:style",
-    "precommit": "npm run lint-staged",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "eslint --ext .js",
-    "test": "roadhog test",
-    "test:component": "roadhog test ./src/components",
-    "test:all": "node ./tests/run-tests.js",
-    "prettier": "prettier --write ./src/**/**/**/*"
+    "lint-staged:js": "eslint --ext .js"
   },
   "lint-staged": {
     "**/*.{js,jsx,less}": [
@@ -32,18 +28,19 @@
     "babel-plugin-dva-hmr": "^0.3.2",
     "babel-plugin-import": "^1.11.0",
     "eslint": "^4.14.0",
-    "eslint-config-umi": "^0.1.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-flowtype": "^2.34.1",
     "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.1.0",
-    "stylelint": "^8.4.0",
-    "stylelint-config-prettier": "^3.0.4",
-    "stylelint-config-standard": "^18.0.0",
     "husky": "^0.12.0",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.2",
     "redbox-react": "^1.4.3",
-    "roadhog": "^2.0.0"
+    "roadhog": "^2.0.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-prettier": "^3.0.4",
+    "stylelint-config-standard": "^18.0.0"
   }
 }
