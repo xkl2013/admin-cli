@@ -7,16 +7,9 @@ function IndexPage() {
   console.log(process.env.TEST);
   return (
     <div className={styles.normal}>
-      <h1 className={styles.title}>Yay! Welcome to dva!</h1>
       <div className={styles.welcome} />
       <Button type="primary">点击</Button>
-      <ul className={styles.list}>
-        <li>
-          <a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">
-            Getting Started
-          </a>
-        </li>
-      </ul>
+      欢迎大家一起来做一款牛逼的产品
     </div>
   );
 }
