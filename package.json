@@ -13,7 +13,7 @@
       "prettier --write",
       "git add"
     ],
-    "src/**/*.{js,jsx}": "npm run lint"
+    "src/**/*.{js,jsx}": "npm run lint-staged:js"
   },
   "dependencies": {
     "antd": "^3.10.8",
