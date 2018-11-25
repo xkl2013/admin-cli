@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Button } from 'antd';
 import styles from './IndexPage.css';
-
+const sss = 222;
 function IndexPage() {
   console.log(process.env.TEST);
   return (
