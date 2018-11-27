@@ -1,14 +1,34 @@
 import React from 'react';
-import { Router, Route, Switch } from 'dva/router';
-import IndexPage from '../pages/IndexPage';
+import { routerRedux, Route, Switch } from 'dva/router';
+import { LocaleProvider } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import dynamic from 'dva/dynamic';
+import AuthorizedRoute from '../components/Authorized/AuthorizedRoute';
+import Spin from '@/components/Spin';
+// import IndexPage from '../pages/IndexPage';
 
+import UserLayout from '../layout/UserLayout';
+import BasicLayout from '../layout/BasicLayout';
+
+dynamic.setDefaultLoadingComponent(() => {
+  // 切换模块loading
+  return <Spin size="large" />;
+});
 function RouterConfig({ history }) {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/" exact component={IndexPage} />
-      </Switch>
-    </Router>
+    <LocaleProvider locale={zhCN}>
+      <routerRedux.ConnectedRouter history={history}>
+        <Switch>
+          <Route path="/userLayout" exact component={UserLayout} />
+          <AuthorizedRoute
+            path="/"
+            render={props => <BasicLayout {...props} />}
+            // authority={checkoutLogin}
+            redirectPath="/userLayout/login"
+          />
+        </Switch>
+      </routerRedux.ConnectedRouter>
+    </LocaleProvider>
   );
 }
 

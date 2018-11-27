@@ -4,7 +4,6 @@ import { Button } from 'antd';
 import styles from './IndexPage.css';
 
 function IndexPage() {
-  console.log(process.env.API_TYPE);
   return (
     <div className={styles.normal}>
       <div className={styles.welcome} />
