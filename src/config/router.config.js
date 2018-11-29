@@ -5,16 +5,18 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
 import AuthorizedRoute from '../components/Authorized/AuthorizedRoute';
 import Spin from '@/components/Spin';
+import { getRouterData } from './router.map';
 // import IndexPage from '../pages/IndexPage';
 
 import UserLayout from '../layout/UserLayout';
-import BasicLayout from '../layout/BasicLayout';
 
 dynamic.setDefaultLoadingComponent(() => {
   // 切换模块loading
   return <Spin size="large" />;
 });
-function RouterConfig({ history }) {
+function RouterConfig({ history, app }) {
+  const routerData = getRouterData(app);
+  const BasicLayout = routerData['/'].component;
   return (
     <LocaleProvider locale={zhCN}>
       <routerRedux.ConnectedRouter history={history}>
