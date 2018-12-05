@@ -1,8 +1,11 @@
-import CheckPermissions from './CheckPermissions';
+import Authorized from './Authorized';
+import AuthorizedRoute from './AuthorizedRoute';
+import Secured from './Secured';
+import check from './CheckPermissions';
+import renderAuthorize from './renderAuthorize';
 
-const Authorized = ({ children, authority, noMatch = null }) => {
-  const childrenRender = typeof children === 'undefined' ? null : children;
-  return CheckPermissions(authority, childrenRender, noMatch);
-};
+Authorized.Secured = Secured;
+Authorized.AuthorizedRoute = AuthorizedRoute;
+Authorized.check = check;
 
-export default Authorized;
+export default renderAuthorize(Authorized);

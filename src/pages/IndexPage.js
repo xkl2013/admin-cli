@@ -3,7 +3,8 @@ import { connect } from 'dva';
 import { Button } from 'antd';
 import styles from './IndexPage.css';
 
-function IndexPage() {
+function IndexPage(props) {
+  console.log(props);
   return (
     <div className={styles.normal}>
       <div className={styles.welcome} />
@@ -12,7 +13,5 @@ function IndexPage() {
     </div>
   );
 }
-
-IndexPage.propTypes = {};
 
 export default connect()(IndexPage);

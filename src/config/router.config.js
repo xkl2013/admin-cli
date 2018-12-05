@@ -1,14 +1,12 @@
 import React from 'react';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { Route, Switch, Router } from 'dva/router';
 import { LocaleProvider } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
 import AuthorizedRoute from '../components/Authorized/AuthorizedRoute';
 import Spin from '@/components/Spin';
-import { getRouterData } from './router.map';
-// import IndexPage from '../pages/IndexPage';
-
-import UserLayout from '../layout/UserLayout';
+import { getRouterData } from './menu.config';
+// import BasicLayout from '../layout/BasicLayout';
 
 dynamic.setDefaultLoadingComponent(() => {
   // 切换模块loading
@@ -16,20 +14,21 @@ dynamic.setDefaultLoadingComponent(() => {
 });
 function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
+  const UserLayout = routerData['/user'].component;
   const BasicLayout = routerData['/'].component;
   return (
     <LocaleProvider locale={zhCN}>
-      <routerRedux.ConnectedRouter history={history}>
+      <Router history={history}>
         <Switch>
-          <Route path="/userLayout" exact component={UserLayout} />
+          <Route path="/user" exact render={props => <UserLayout {...props} />} />
           <AuthorizedRoute
             path="/"
             render={props => <BasicLayout {...props} />}
             // authority={checkoutLogin}
-            redirectPath="/userLayout/login"
+            redirectPath="/user/login"
           />
         </Switch>
-      </routerRedux.ConnectedRouter>
+      </Router>
     </LocaleProvider>
   );
 }

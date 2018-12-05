@@ -12,6 +12,9 @@ export default {
   theme: './src/theme.js',
   disableDynamicImport: false,
   publicPath: '/',
+  html: {
+    template: './src/index.ejs',
+  },
   hash: true,
   env: {
     development: {
