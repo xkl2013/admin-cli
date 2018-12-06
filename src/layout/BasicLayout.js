@@ -13,7 +13,7 @@ import SiderMenu from '@/components/SiderMenu';
 import RouteDistribute from '@/components/RouteDistribute';
 import Header from './Header';
 import Footer from './Footer';
-import logo from '@/assets/logo.svg';
+import logo from '@/assets/logo.png';
 
 const query = {
   'screen-xs': {
@@ -43,10 +43,7 @@ const query = {
 class BaseIcLayout extends React.Component {
   constructor(props) {
     super(props);
-    // this.getPageTitle = memoizeOne(this.getPageTitle);
-    // this.getBreadcrumbNameMap = memoizeOne(this.getBreadcrumbNameMap, isEqual);
     this.breadcrumbNameMap = this.getBreadcrumbNameMap();
-
     this.matchParamsPath = memoizeOne(this.matchParamsPath, isEqual);
   }
 
@@ -58,7 +55,7 @@ class BaseIcLayout extends React.Component {
     });
     dispatch({
       type: 'menu/getMenuData',
-      payload: { routes: [menuData] },
+      payload: { routes: menuData.children },
     });
   }
 

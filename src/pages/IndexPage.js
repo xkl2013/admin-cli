@@ -17,5 +17,4 @@ class IndexPage extends React.Component {
     );
   }
 }
-
 export default connect()(IndexPage);
