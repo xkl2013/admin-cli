@@ -40,7 +40,6 @@ export const dynamicWrapper = (app, models, component) => {
       if (!routerDataCache) {
         routerDataCache = getRouterData(app);
       }
-      console.log(routerDataCache);
       return component().then(raw => {
         const Component = raw.default || raw;
         return props =>
@@ -128,4 +127,25 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-
 
 export function isUrl(path) {
   return reg.test(path);
+}
+export function getFlatMenuData(menus, app) {
+  // 将树状结构转化为扁平
+  let keys = {};
+  menus.forEach(item => {
+    if (item.children) {
+      const componentObj = {};
+      if (item.path && item.children && item.children.length > 0 && !item.component) {
+        //  如果有path值且有children长度大于0,且没有component,默认绑定一个组件
+        componentObj.component = dynamicWrapper(app, [], () =>
+          import('@/components/RouteDistribute/RenderRoute')
+        );
+      }
+
+      keys[item.path] = { ...item, ...componentObj };
+      keys = { ...keys, ...getFlatMenuData(item.children) };
+    } else {
+      keys[item.path] = { ...item };
+    }
+  });
+  return keys;
 }

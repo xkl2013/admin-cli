@@ -6,7 +6,6 @@ import dynamic from 'dva/dynamic';
 import AuthorizedRoute from '../components/Authorized/AuthorizedRoute';
 import Spin from '@/components/Spin';
 import { getRouterData } from './menu.config';
-// import BasicLayout from '../layout/BasicLayout';
 
 dynamic.setDefaultLoadingComponent(() => {
   // 切换模块loading

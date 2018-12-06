@@ -1,26 +1,4 @@
-import { dynamicWrapper } from '../utils/router.utils';
-
-function getFlatMenuData(menus, app) {
-  let keys = {};
-  menus.forEach(item => {
-    if (item.path && item.children && item.children.length > 0 && !item.component) {
-      //  如果有path值且有children长度大于0,且没有component,默认绑定一个组件
-      keys[item.path] = {
-        ...item,
-        component: dynamicWrapper(app, [], () =>
-          import('../components/RouteDistribute/RenderRoute')
-        ),
-      };
-    }
-    if (item.children) {
-      keys[item.path] = { ...item };
-      keys = { ...keys, ...getFlatMenuData(item.children) };
-    } else {
-      keys[item.path] = { ...item };
-    }
-  });
-  return keys;
-}
+import { dynamicWrapper, getFlatMenuData } from '../utils/router.utils';
 
 export const getRouterData = app => {
   const menuData = [
@@ -33,6 +11,7 @@ export const getRouterData = app => {
         { path: '/user/login', component: '../pages/User/Login' },
       ],
     },
+    // menu data区域
     {
       icon: 'dashboard',
       path: '/',
@@ -40,11 +19,11 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['setting', 'global', 'menu'], () =>
         import('../layout/BasicLayout')
       ),
-      // redirect: '/home/index' ,
+      redirect: '/home/page',
       authority: ['admin', 'user'],
       children: [
         {
-          name: '首页',
+          name: '自己',
           path: '/home',
           children: [
             {

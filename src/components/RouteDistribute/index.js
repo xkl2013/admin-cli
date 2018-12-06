@@ -7,10 +7,10 @@ const { AuthorizedRoute } = Authorized;
 const redirectData = [];
 const getRedirect = item => {
   if (item && item.children) {
-    if (item.children[0] && item.children[0].path) {
+    if (item.redirect) {
       redirectData.push({
         from: `${item.path}`,
-        to: `${item.children[0].path}`,
+        to: `${item.redirect}`,
       });
       item.children.forEach(children => {
         getRedirect(children);
@@ -20,13 +20,19 @@ const getRedirect = item => {
 };
 
 export default class RouteDistribute extends PureComponent {
+  componentDidMount() {
+    const { routerData } = this.props;
+    const menuData = routerData['/'];
+    getRedirect(menuData);
+  }
+
   render() {
     const { match, routerData } = this.props;
     return (
       <Switch>
-        {/* {redirectData.map(item => (
-              <Redirect key={item.from} exact from={item.from} to={item.to} />
-              ))} */}
+        {redirectData.map(item => (
+          <Redirect key={item.from} exact from={item.from} to={item.to} />
+        ))}
         {getRoutes(match.path, routerData).map(
           item =>
             item.component && (
@@ -40,7 +46,7 @@ export default class RouteDistribute extends PureComponent {
               />
             )
         )}
-        <Redirect exact from="/" to="/home" />
+        <Redirect exact from="/" to="/home/page" />
       </Switch>
     );
   }

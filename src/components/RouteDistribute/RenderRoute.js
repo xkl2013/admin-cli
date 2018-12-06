@@ -6,7 +6,6 @@ export default class RenderRoute extends PureComponent {
   render() {
     const { match, routerData } = this.props;
     const routes = getRoutes(match.path, routerData);
-    console.log(routes);
     return (
       <Switch>
         {routes.map(item => (

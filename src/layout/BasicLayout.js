@@ -5,12 +5,14 @@ import Media from 'react-media'; // 根据query匹配render相应的组件;https
 import DocumentTitle from 'react-document-title'; // https://www.npmjs.com/package/react-document-title
 import { ContainerQuery } from 'react-container-query'; // https://github.com/d6u/react-container-query
 import classNames from 'classnames';
+import pathToRegexp from 'path-to-regexp';
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
-import Context from '@/utils/context';
+import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
 import RouteDistribute from '@/components/RouteDistribute';
 import Header from './Header';
+import Footer from './Footer';
 import logo from '@/assets/logo.svg';
 
 const query = {
@@ -41,9 +43,10 @@ const query = {
 class BaseIcLayout extends React.Component {
   constructor(props) {
     super(props);
-    this.getPageTitle = memoizeOne(this.getPageTitle);
-    this.getBreadcrumbNameMap = memoizeOne(this.getBreadcrumbNameMap, isEqual);
+    // this.getPageTitle = memoizeOne(this.getPageTitle);
+    // this.getBreadcrumbNameMap = memoizeOne(this.getBreadcrumbNameMap, isEqual);
     this.breadcrumbNameMap = this.getBreadcrumbNameMap();
+
     this.matchParamsPath = memoizeOne(this.matchParamsPath, isEqual);
   }
 
@@ -59,9 +62,9 @@ class BaseIcLayout extends React.Component {
     });
   }
 
-  getPageTitle = () => {
-    return 'dva-admin';
-  };
+  componentDidUpdate() {
+    this.breadcrumbNameMap = this.getBreadcrumbNameMap();
+  }
 
   /**
    * 获取面包屑映射
@@ -69,7 +72,7 @@ class BaseIcLayout extends React.Component {
    */
   getBreadcrumbNameMap() {
     const routerMap = {};
-    const { menuData = [] } = this.props;
+    const { menuData } = this.props;
     const flattenMenuData = data => {
       data.forEach(menuItem => {
         if (menuItem.children) {
@@ -83,10 +86,31 @@ class BaseIcLayout extends React.Component {
     return routerMap;
   }
 
-  getContext = () => {
+  getContext() {
+    const { location, routerData } = this.props;
     return {
-      name: 2222,
+      location,
+      breadcrumbNameMap: routerData,
     };
+  }
+
+  matchParamsPath = pathname => {
+    const pathKey = Object.keys(this.breadcrumbNameMap).find(key =>
+      pathToRegexp(key).test(pathname)
+    );
+    return this.breadcrumbNameMap[pathKey];
+  };
+
+  getPageTitle = pathname => {
+    const currRouterData = this.matchParamsPath(pathname);
+    if (!currRouterData) {
+      return 'dva-admin';
+    }
+    // const pageName = formatMessage({
+    //   id: currRouterData.locale || currRouterData.name,
+    //   defaultMessage: currRouterData.name,
+    // });
+    return `${pathname}`;
   };
 
   getLayoutStyle = () => {
@@ -104,6 +128,7 @@ class BaseIcLayout extends React.Component {
     return {
       margin: '24px 24px 0',
       paddingTop: fixedHeader ? 64 : 0,
+      background: '#fff',
     };
   };
 
@@ -142,6 +167,9 @@ class BaseIcLayout extends React.Component {
           <Layout.Content style={this.getContentStyle()}>
             <RouteDistribute {...this.props} />
           </Layout.Content>
+          <Layout.Footer style={{ textAlign: 'center' }}>
+            <Footer {...this.props} />
+          </Layout.Footer>
         </Layout>
       </Layout>
     );
@@ -149,9 +177,12 @@ class BaseIcLayout extends React.Component {
 
   render() {
     const layout = this.renderLayout();
+    const {
+      location: { pathname },
+    } = this.props;
     return (
       <React.Fragment>
-        <DocumentTitle title={this.getPageTitle()} />
+        <DocumentTitle title={this.getPageTitle(pathname)} />
         <ContainerQuery query={query}>
           {params => (
             <Context.Provider value={this.getContext()}>
