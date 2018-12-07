@@ -23,7 +23,7 @@ function RouterConfig({ history, app }) {
           <AuthorizedRoute
             path="/"
             render={props => <BasicLayout {...props} />}
-            // authority={checkoutLogin}
+            authority={['admin']} //  进入页面的权限
             redirectPath="/user/login"
           />
         </Switch>

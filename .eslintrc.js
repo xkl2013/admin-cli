@@ -17,6 +17,8 @@ module.exports = {
     'react/forbid-prop-types': [0],
     'react/react-in-jsx-scope': [0], // 使用JSX时防止丢失React
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/destructuring-assignment': [1],
+    'react/no-access-state-in-setstate': [0],
     'global-require': [1],
     'import/prefer-default-export': [0],
     'react/jsx-no-bind': [0],

@@ -99,7 +99,7 @@ class BaseIcLayout extends React.Component {
   };
 
   getPageTitle = () => {
-    return 'dva-admin';
+    return 'dva-admin'; //  可根据路由配置显示特定name
     // const currRouterData = this.matchParamsPath(pathname);
     // if (!currRouterData) {
     //   return 'dva-admin';
