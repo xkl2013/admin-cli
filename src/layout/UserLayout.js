@@ -1,8 +1,12 @@
 import React from 'react';
+import RouteDistribute from '@/components/RouteDistribute';
 
 export default class UserLayout extends React.Component {
   render() {
-    console.log(this.props);
-    return <div>UserLayout</div>;
+    return (
+      <React.Fragment>
+        <RouteDistribute {...this.props} rootPath="/user" />
+      </React.Fragment>
+    );
   }
 }

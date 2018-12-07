@@ -98,16 +98,17 @@ class BaseIcLayout extends React.Component {
     return this.breadcrumbNameMap[pathKey];
   };
 
-  getPageTitle = pathname => {
-    const currRouterData = this.matchParamsPath(pathname);
-    if (!currRouterData) {
-      return 'dva-admin';
-    }
+  getPageTitle = () => {
+    return 'dva-admin';
+    // const currRouterData = this.matchParamsPath(pathname);
+    // if (!currRouterData) {
+    //   return 'dva-admin';
+    // }
     // const pageName = formatMessage({
     //   id: currRouterData.locale || currRouterData.name,
     //   defaultMessage: currRouterData.name,
     // });
-    return `${pathname}`;
+    // return `${pathname}`;
   };
 
   getLayoutStyle = () => {
@@ -162,7 +163,7 @@ class BaseIcLayout extends React.Component {
             {...this.props}
           />
           <Layout.Content style={this.getContentStyle()}>
-            <RouteDistribute {...this.props} />
+            <RouteDistribute {...this.props} rootPath="/" />
           </Layout.Content>
           <Layout.Footer style={{ textAlign: 'center' }}>
             <Footer {...this.props} />

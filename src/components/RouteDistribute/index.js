@@ -21,8 +21,8 @@ const getRedirect = item => {
 
 export default class RouteDistribute extends PureComponent {
   componentDidMount() {
-    const { routerData } = this.props;
-    const menuData = routerData['/'];
+    const { routerData, rootPath } = this.props;
+    const menuData = routerData[rootPath];
     getRedirect(menuData);
   }
 

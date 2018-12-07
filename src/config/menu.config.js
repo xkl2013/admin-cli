@@ -6,9 +6,12 @@ export const getRouterData = app => {
     {
       path: '/user',
       component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
+      redirect: '/user/login',
       children: [
-        { path: '/user', redirect: '/user/login' },
-        { path: '/user/login', component: '../pages/Login/Login' },
+        {
+          path: '/user/login',
+          component: dynamicWrapper(app, [], () => import('../pages/Login/LoginIn')),
+        },
       ],
     },
     // menu data区域

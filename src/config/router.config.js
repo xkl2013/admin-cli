@@ -19,7 +19,7 @@ function RouterConfig({ history, app }) {
     <LocaleProvider locale={zhCN}>
       <Router history={history}>
         <Switch>
-          <Route path="/user" exact render={props => <UserLayout {...props} />} />
+          <Route path="/user" render={props => <UserLayout {...props} />} />
           <AuthorizedRoute
             path="/"
             render={props => <BasicLayout {...props} />}
