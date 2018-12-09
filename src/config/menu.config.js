@@ -5,12 +5,12 @@ export const getRouterData = app => {
     // user
     {
       path: '/user',
-      component: dynamicWrapper(app, [], () => import('../layout/UserLayout')),
+      component: dynamicWrapper(app, ['login'], () => import('../layout/UserLayout')),
       redirect: '/user/login',
       children: [
         {
           path: '/user/login',
-          component: dynamicWrapper(app, [], () => import('../pages/Login/LoginIn')),
+          component: dynamicWrapper(app, ['login'], () => import('../pages/Login/LoginIn')),
         },
       ],
     },
@@ -19,11 +19,11 @@ export const getRouterData = app => {
       icon: 'dashboard',
       path: '/',
       name: 'hao',
-      component: dynamicWrapper(app, ['setting', 'global', 'menu'], () =>
+      component: dynamicWrapper(app, ['setting', 'global', 'menu', 'login', 'user'], () =>
         import('../layout/BasicLayout')
       ),
       redirect: '/home/page',
-      authority: ['admin', 'user'],
+      authority: ['admin'],
       children: [
         {
           name: '自己',

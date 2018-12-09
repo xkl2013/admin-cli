@@ -15,7 +15,18 @@ export function getAuthority(str) {
   return authority || ['admin'];
 }
 
-export function setAuthority(authority) {
+export function setAuthority(key = null, authority) {
   const proAuthority = typeof authority === 'string' ? [authority] : authority;
-  return localStorage.setItem('dva-admin', JSON.stringify(proAuthority));
+  if (!key) {
+    throw new Error('传入合法的key值');
+  }
+  return localStorage.setItem(key, JSON.stringify(proAuthority));
+}
+
+export function removeStorge(key) {
+  try {
+    window.localStorage.removeItem(key);
+  } catch (e) {
+    console.warn('读取本地存储失败,请检查浏览器对存储的设置');
+  }
 }

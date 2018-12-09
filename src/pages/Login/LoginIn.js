@@ -24,7 +24,7 @@ export default class LoginPage extends Component {
       errorMessage: '',
       isShowErrorBox: true,
       adminUser: {
-        userName: localAdminUser.userName || '',
+        username: localAdminUser.username || '',
         password: localAdminUser.password || '',
       },
     };
@@ -86,7 +86,7 @@ export default class LoginPage extends Component {
             <span className={styles.loginLabel} style={{ marginTop: '0px' }}>
               用户名
             </span>
-            <UserName name="userName" placeholder="输入账号" defaultValue="" />
+            <UserName name="username" placeholder="输入账号" defaultValue="" />
             <span className={styles.loginLabel}>密码</span>
             <NoHintPwd name="password" placeholder="请输入密码" defaultValue={adminUser.password} />
             <div className={styles.loginStatusBox}>

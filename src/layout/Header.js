@@ -1,7 +1,6 @@
 import { PureComponent } from 'react';
 import { Layout } from 'antd';
 import { connect } from 'dva';
-// import className from 'classnames';
 import GlobalHeader from '@/components/GlobalHeader';
 import styles from './styles/header.less';
 
@@ -12,6 +11,15 @@ class SelfHeader extends PureComponent {
     super(props);
     this.state = {};
   }
+
+  onMenuClick = ({ key }) => {
+    const { dispatch } = this.props;
+    if (key === 'logout') {
+      dispatch({
+        type: 'login/logout',
+      });
+    }
+  };
 
   getHeadWidth = () => {
     const { isMobile, collapsed, setting } = this.props;
@@ -28,13 +36,15 @@ class SelfHeader extends PureComponent {
     const width = this.getHeadWidth();
     return (
       <Header style={{ padding: 0, width }} className={fixedHeader ? styles.fixedHeader : ''}>
-        <GlobalHeader {...setting} {...this.props} />
+        <GlobalHeader {...setting} {...this.props} onMenuClick={this.onMenuClick} />
       </Header>
     );
   }
 }
-export default connect(({ loading, setting, global }) => ({
+export default connect(({ loading, setting, global, user, login }) => ({
   loading,
   setting,
+  login,
+  currentUser: user.currentUser,
   collapsed: global.collapsed,
 }))(SelfHeader);

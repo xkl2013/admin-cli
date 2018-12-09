@@ -51,6 +51,9 @@ class BaseIcLayout extends React.Component {
     const { dispatch, routerData } = this.props;
     const menuData = routerData['/'];
     dispatch({
+      type: 'user/fetchCurrent',
+    });
+    dispatch({
       type: 'setting/getSetting',
     });
     dispatch({
@@ -193,7 +196,8 @@ class BaseIcLayout extends React.Component {
     );
   }
 }
-export default connect(({ loading, setting, global, menu }) => ({
+export default connect(({ loading, setting, global, menu, user }) => ({
+  user,
   loading,
   collapsed: global.collapsed,
   layout: setting.layout,

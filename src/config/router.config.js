@@ -3,10 +3,11 @@ import { Route, Switch, Router } from 'dva/router';
 import { LocaleProvider } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
-import AuthorizedRoute from '../components/Authorized/AuthorizedRoute';
+import Authorized from '@/utils/Authorized';
 import Spin from '@/components/Spin';
 import { getRouterData } from './menu.config';
 
+const { AuthorizedRoute } = Authorized;
 dynamic.setDefaultLoadingComponent(() => {
   // 切换模块loading
   return <Spin size="large" />;
